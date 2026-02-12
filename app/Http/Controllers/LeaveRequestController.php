@@ -12,9 +12,16 @@ class LeaveRequestController extends Controller
         $user = auth('sanctum')->user();
 
         $request->validate([
-            'start_date'=>'required|date',
+            'start_date'=>'required|date|after_or_equal:today',
             'end_date'=>'required|date|after_or_equal:start_date'
         ]);
+
+        $startDate = Carbon::parse($request->start_date)->startOfDay();
+        $today = Carbon::now()->startOfDay();
+
+        if ($startDate->isBefore($today)) {
+            return response()->json(['message'=>'Start date cannot be before today'], 400);
+        }
 
         $totalDays =
             Carbon::parse($request->start_date)

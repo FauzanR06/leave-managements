@@ -21,7 +21,7 @@ class AuthController extends Controller
     
         if (! $user || ! Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
-                'employee_number' => ['The provided credentials are incorrect.'],
+                'employee_number' => ['Employee number or password is incorrect.'],
             ]);
         }
     

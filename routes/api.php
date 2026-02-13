@@ -19,6 +19,7 @@ Route::middleware('auth:sanctum')->group(function(){
     // Admin
     Route::middleware('admin')->group(function(){
         Route::get('/leave-requests',[LeaveRequestController::class,'index']);
+        Route::get('/leave-requests/employee/{userId}',[LeaveRequestController::class,'getEmployeeLeaves']);
         Route::put('/leave-requests/{id}/approve',[LeaveRequestController::class,'approve']);
         Route::put('/leave-requests/{id}/reject',[LeaveRequestController::class,'reject']);
     });

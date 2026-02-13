@@ -74,4 +74,12 @@ class LeaveRequestController extends Controller
         LeaveRequest::findOrFail($id)->update(['status'=>'REJECTED']);
         return response()->json(['message'=>'Leave rejected']);
     }
+
+    // ADMIN - GET EMPLOYEE LEAVES
+    public function getEmployeeLeaves($userId)
+    {
+        return LeaveRequest::with('user')
+            ->where('user_id', $userId)
+            ->get();
+    }
 }
